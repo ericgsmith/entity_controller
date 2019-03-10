@@ -1,0 +1,7 @@
+name: Pikselin Tools Examples
+type: module
+description: 'Examples of Pik Tool implementations.'
+package: Custom
+core: 8.x
+dependencies:
+  - entity_controller:entity_controller
