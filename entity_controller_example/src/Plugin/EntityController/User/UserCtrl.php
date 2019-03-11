@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\entity_controller_exmaple\Plugin\EntityController;
+namespace Drupal\entity_controller_example\Plugin\EntityController;
 
 use Drupal\entity_controller\Plugin\EntityControllerBase;
 

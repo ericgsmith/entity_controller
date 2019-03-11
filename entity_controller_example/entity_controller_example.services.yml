@@ -1,4 +1,4 @@
 services:
-  entity_controller_exmaple.controller_factory:
-    class: Drupal\entity_controller_exmaple\Factory\ControllerFactory
+  entity_controller_example.controller_factory:
+    class: Drupal\entity_controller_example\Factory\ControllerFactory
     arguments: ['@plugin.manager.entity_controller']
