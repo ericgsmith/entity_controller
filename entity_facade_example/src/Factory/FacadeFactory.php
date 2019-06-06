@@ -40,7 +40,7 @@ class FacadeFactory {
    *
    * @throws \Drupal\Component\Plugin\Exception\PluginException
    */
-  public function getNodeArticleCtrl(NodeInterface $node) {
+  public function getArticleFacade(NodeInterface $node) {
     return $this->entityFacadeManager->createInstanceFromEntity($node);
   }
 }
