@@ -1,0 +1,4 @@
+services:
+  entity_facade_example.facade_factory:
+    class: Drupal\entity_facade_example\Factory\FacadeFactory
+    arguments: ['@plugin.manager.entity_facade']

@@ -1,4 +1,4 @@
-name: Content Entity Facades
+name: Entity Facade
 type: module
 description: An opinionated way to interact with content entities.
 package: Custom

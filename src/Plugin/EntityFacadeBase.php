@@ -70,4 +70,13 @@ abstract class EntityFacadeBase extends PluginBase implements EntityFacadeInterf
     // Treat no bundles supplied as applicable to all types.
     return empty($bundles) || in_array($entity->bundle(), $bundles, TRUE);
   }
+
+  /**
+   * Get the entity.
+   *
+   * @return \Drupal\Core\Entity\ContentEntityInterface
+   */
+  protected function getEntity() {
+    return $this->entity;
+  }
 }

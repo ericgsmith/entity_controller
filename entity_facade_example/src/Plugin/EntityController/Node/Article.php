@@ -5,7 +5,9 @@ namespace Drupal\entity_facade_example\Plugin\EntityController\Node;
 use Drupal\entity_facade\Plugin\EntityFacadeBase;
 
 /**
- * Example annotation.
+ * Provides a facade to interact with article nodes.
+ *
+ * @method \Drupal\node\NodeInterface getEntity()
  *
  * @EntityController(
  *  id = "node_article",
@@ -16,8 +18,9 @@ use Drupal\entity_facade\Plugin\EntityFacadeBase;
  *  }
  * )
  */
-class ArticleCtrl extends EntityFacadeBase {
+class Article extends EntityFacadeBase {
 
+  // Fields on the article.
   const FIELD_IMAGE = 'field_image';
   const FIELD_TAGS = 'field_tags';
 
