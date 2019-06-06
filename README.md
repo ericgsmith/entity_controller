@@ -1,10 +1,12 @@
 # Entity Facade
 
-This provides an opinionated way to encapsulate business logic in a Drupal application.
+> The primary goal of a Facade Pattern is not to avoid you having to read the manual of a complex API. It’s only a side-effect. The first goal is to reduce coupling and follow the Law of Demeter.
+
+This provides an opinionated way to interact with content entities and govern the way they are used in your application.
 
 The module provides a plugin type for entity facades. Entity facade plugins can be cover whole entity types, or specific bundles, to provide a point of entry to interact with the data and encapsulate any business logic around the entity.
 
-The intent is that entities can be interacted with, without the need for all areas of your code knowing your field / data structures.
+The intent is that entities can be interacted with, such as in the theme layer, without the need for all areas of your code knowing your business logic, field and data structure, and dependencies to that logic.
 
 ## Background
 
