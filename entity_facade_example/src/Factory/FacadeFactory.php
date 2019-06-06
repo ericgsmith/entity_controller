@@ -35,7 +35,7 @@ class FacadeFactory {
    * @param \Drupal\node\NodeInterface $node
    *   Drupal content entity.
    *
-   * @return \Drupal\entity_facade_example\Plugin\EntityController\Node\Article
+   * @return \Drupal\entity_facade_example\Plugin\EntityFacacde\Node\Article
    *   The article facade.
    *
    * @throws \Drupal\Component\Plugin\Exception\PluginException

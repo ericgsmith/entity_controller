@@ -42,7 +42,7 @@ abstract class EntityFacadeBase extends PluginBase implements EntityFacadeInterf
    *   Drupal content entity.
    *
    * @throws \Drupal\entity_facade\Exception\InvalidEntityException
-   *   When an invalid entity is supplied for the controller.
+   *   When an invalid entity is supplied for the facade.
    */
   protected function setEntity(ContentEntityInterface $entity) {
     if (!$this->isValidEntity($entity)) {
@@ -53,13 +53,13 @@ abstract class EntityFacadeBase extends PluginBase implements EntityFacadeInterf
   }
 
   /**
-   * Check if an entity is valid for this controller.
+   * Check if an entity is valid for this facade.
    *
    * @param \Drupal\Core\Entity\ContentEntityInterface $entity
    *  Drupal content entity.
    *
    * @return bool
-   *   TRUE when the entity can be used by this controller.
+   *   TRUE when the entity can be used by this facade.
    */
   protected function isValidEntity(ContentEntityInterface $entity) {
     if ($this->pluginDefinition['entityType'] !== $entity->getEntityTypeId()) {

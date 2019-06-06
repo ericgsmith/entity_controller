@@ -1,15 +1,14 @@
 <?php
 
-namespace Drupal\entity_facade_example\Plugin\EntityController\Node;
+namespace Drupal\entity_facade_example\Plugin\EntityFacade\Node;
 
+use Drupal\entity_facade\Annotation\EntityFacade;
 use Drupal\entity_facade\Plugin\EntityFacadeBase;
 
 /**
  * Provides a facade to interact with article nodes.
  *
- * @method \Drupal\node\NodeInterface getEntity()
- *
- * @EntityController(
+ * @EntityFacade(
  *  id = "node_article",
  *  label = @Translation("Node: Article"),
  *  entityType = "node",
@@ -17,6 +16,8 @@ use Drupal\entity_facade\Plugin\EntityFacadeBase;
  *   "article"
  *  }
  * )
+ *
+ * @method \Drupal\node\NodeInterface getEntity()
  */
 class Article extends EntityFacadeBase {
 
@@ -34,7 +35,7 @@ class Article extends EntityFacadeBase {
    * @return bool
    */
   public function hasImage() {
-    return $this->getEntity()->get(self::FIELD_IMAGE)->isEmpty();
+    return !$this->getEntity()->get(self::FIELD_IMAGE)->isEmpty();
   }
 
   /**
