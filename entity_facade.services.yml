@@ -1,0 +1,4 @@
+services:
+  plugin.manager.entity_facade:
+    class: Drupal\entity_facade\Plugin\EntityFacadeManager
+    parent: default_plugin_manager

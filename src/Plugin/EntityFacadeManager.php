@@ -1,21 +1,22 @@
 <?php
 
-namespace Drupal\entity_controller\Plugin;
+namespace Drupal\entity_facade\Plugin;
 
+use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
-use Drupal\entity_controller\Exception\EntityControllerException;
-use Drupal\entity_controller\Annotation\EntityController;
+use Drupal\entity_facade\Exception\EntityFacadeDefinitionException;
+use Drupal\entity_facade\Annotation\EntityFacade;
+use Drupal\entity_facade\Factory\EntityFacadeFactory;
 
 /**
- * Provides the Entity controller plugin manager.
+ * Provides the entity facade plugin manager.
  */
-class EntityControllerManager extends DefaultPluginManager {
+class EntityFacadeManager extends DefaultPluginManager implements EntityFacadeManagerInterface {
 
   /**
-   * Constructs a new EntityControllerManager object.
-   * Constructs a new EntityControllerManager object.
+   * Constructs a new EntityFacadeManager object.
    *
    * @param \Traversable $namespaces
    *   An object that implements \Traversable which contains the root paths
@@ -26,9 +27,38 @@ class EntityControllerManager extends DefaultPluginManager {
    *   The module handler to invoke the alter hook with.
    */
   public function __construct(\Traversable $namespaces, CacheBackendInterface $cache_backend, ModuleHandlerInterface $module_handler) {
-    parent::__construct('Plugin/EntityController', $namespaces, $module_handler, EntityControllerInterface::class, EntityController::class);
-    $this->alterInfo('entity_controller_entity_controller_info');
-    $this->setCacheBackend($cache_backend, 'entity_controller_entity_controller_plugins');
+    parent::__construct('Plugin/EntityFacade', $namespaces, $module_handler, EntityFacadeInterface::class, EntityFacade::class);
+    $this->factory = new EntityFacadeFactory($this, $this->pluginInterface);
+    $this->alterInfo('entity_facade_entity_facade_info');
+    $this->setCacheBackend($cache_backend, 'entity_facade_entity_facade_plugins');
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public function createInstanceFromEntity(ContentEntityInterface $entity) {
+    $definition = $this->getPluginForEntityBundle($entity->getEntityTypeId(), $entity->bundle());
+    return $this->createInstance($definition['id'], [], $entity);
+  }
+
+  /**
+   * Creates a pre-configured instance of a plugin.
+   *
+   * @param string $plugin_id
+   *   The ID of the plugin being instantiated.
+   * @param array $configuration
+   *   An array of configuration relevant to the plugin instance.
+   * @param \Drupal\Core\Entity\ContentEntityInterface $entity
+   *   Drupal content entity.
+   *
+   * @return \Drupal\entity_facade\Plugin\EntityFacadeInterface
+   *   A fully configured plugin instance.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\PluginException
+   *   If the instance cannot be created, such as if the ID is invalid.
+   */
+  public function createInstance($plugin_id, array $configuration = [], $entity = NULL) {
+    return $this->getFactory()->createInstance($plugin_id, $configuration, $entity);
   }
 
   /**
@@ -42,20 +72,19 @@ class EntityControllerManager extends DefaultPluginManager {
    * @return array
    *   Plugin definition for this entity type and bundle.
    *
-   * @throws \Drupal\entity_controller\Exception\EntityControllerException
-   *   When the count of applicable plugins in not 1.
+   * @throws \Drupal\entity_facade\Exception\EntityFacadeDefinitionException
+   *   When the no applicable definitions are found.
    */
-  public function getPluginForEntityBundle($entityType, $entityBundle) {
+  protected function getPluginForEntityBundle($entityType, $entityBundle) {
     $entityTypeDefinitions = $this->getAllDefinitionsByType($entityType);
     $entityBundleDefinitions = $this->filterDefinitionsByBundle($entityBundle, $entityTypeDefinitions);
     // If nothing found by type, look for a fallback bundle.
     $applicableDefinitions = $entityBundleDefinitions ?: $this->filterDefinitionsByEmptyBundle($entityTypeDefinitions);
 
     if (count($applicableDefinitions) === 0) {
-      throw new EntityControllerException('No plugin definitions found for entity type: ' . $entityType . ' bundle: ' . $entityBundle);
+      throw new EntityFacadeDefinitionException('No plugin definitions found for entity type: ' . $entityType . ' bundle: ' . $entityBundle);
     }
 
-    // @todo - Do we need to care if multiple are found? Just return the first.
     return reset($applicableDefinitions);
   }
 

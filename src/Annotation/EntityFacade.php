@@ -1,18 +1,18 @@
 <?php
 
-namespace Drupal\entity_controller\Annotation;
+namespace Drupal\entity_facade\Annotation;
 
 use Drupal\Component\Annotation\Plugin;
 
 /**
- * Defines a Entity controller item annotation object.
+ * Defines an entity facade annotation object.
  *
- * @see \Drupal\entity_controller\Plugin\EntityControllerManager
+ * @see \Drupal\entity_facade\Plugin\EntityFacadeManager
  * @see plugin_api
  *
  * @Annotation
  */
-class EntityController extends Plugin {
+class EntityFacade extends Plugin {
 
   /**
    * The plugin ID.
@@ -31,14 +31,14 @@ class EntityController extends Plugin {
   public $label;
 
   /**
-   * The entity type id the controller works with.
+   * The entity type ID the facade works with.
    *
    * @var string
    */
   public $entityType;
 
   /**
-   * The entity bundles the controller works with.
+   * The entity bundles the facade works with.
    *
    * @var string[]
    */

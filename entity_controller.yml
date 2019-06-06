@@ -1,5 +1,0 @@
-name: Entity Controller
-type: module
-description: Provides a plugin type to manged cotent entities.
-package: Custom
-core: 8.x

@@ -1,0 +1,5 @@
+name: Content Entity Facades
+type: module
+description: An opinionated way to interact with content entities.
+package: Custom
+core: 8.x

@@ -1,8 +1,8 @@
 <?php
 
-namespace Drupal\entity_controller_example\Plugin\EntityController\Node;
+namespace Drupal\entity_facade_example\Plugin\EntityController\Node;
 
-use Drupal\entity_controller\Plugin\EntityControllerBase;
+use Drupal\entity_facade\Plugin\EntityFacadeBase;
 
 /**
  * Example annotation.
@@ -16,7 +16,7 @@ use Drupal\entity_controller\Plugin\EntityControllerBase;
  *  }
  * )
  */
-class ArticleCtrl extends EntityControllerBase {
+class ArticleCtrl extends EntityFacadeBase {
 
   const FIELD_IMAGE = 'field_image';
   const FIELD_TAGS = 'field_tags';
